@@ -36,7 +36,7 @@ data class Grid<T>(
     val rows: List<List<T>>,
 ) {
     operator fun get(coordinate: Coordinate) = get(coordinate.row, coordinate.col)
-    operator fun get(row: Int, col: Int): T? = rows.getOrNull(row)?.get(col)
+    operator fun get(row: Int, col: Int): T? = rows.getOrNull(row)?.getOrNull(col)
     operator fun contains(coordinate: Coordinate): Boolean {
         return coordinate.row in rows.indices &&
                 coordinate.col in rows[0].indices
