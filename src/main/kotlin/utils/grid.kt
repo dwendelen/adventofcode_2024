@@ -21,6 +21,14 @@ data class Coordinate(
             col + vector.cols
         )
     }
+    fun neighbours(): List<Coordinate> {
+        return listOf(
+            Coordinate(row - 1, col),
+            Coordinate(row + 1, col),
+            Coordinate(row, col - 1),
+            Coordinate(row, col + 1),
+        )
+    }
 }
 
 data class Vector(
@@ -29,6 +37,14 @@ data class Vector(
 ) {
     operator fun unaryMinus(): Vector {
         return Vector(-rows, -cols)
+    }
+
+    fun rotateCw(): Vector {
+        return Vector(cols, -rows)
+    }
+
+    fun rotateCcw(): Vector {
+        return Vector(-cols, rows)
     }
 }
 
@@ -59,5 +75,11 @@ data class Grid<T>(
     fun forEachIndexed(action: (coordinate: Coordinate, item: T) -> Unit) {
         forEachIndexed{ r, c, i -> action(Coordinate(r, c), i)}
     }
-
+    fun coordinates(): List<Coordinate> {
+        val acc = mutableListOf<Coordinate>()
+        forEachIndexed { coor, _ ->
+            acc.add(coor)
+        }
+        return acc
+    }
 }
