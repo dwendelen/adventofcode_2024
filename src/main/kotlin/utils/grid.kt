@@ -53,6 +53,17 @@ data class Grid<T>(
 ) {
     operator fun get(coordinate: Coordinate) = get(coordinate.row, coordinate.col)
     operator fun get(row: Int, col: Int): T? = rows.getOrNull(row)?.getOrNull(col)
+    operator fun set(coordinate: Coordinate, value: T): Grid<T> {
+        return Grid(rows.mapIndexed { r, row ->
+            row.mapIndexed { c, cell ->
+                if(r == coordinate.row && c == coordinate.col) {
+                    value
+                } else {
+                    cell
+                }
+            }
+        })
+    }
     operator fun contains(coordinate: Coordinate): Boolean {
         return coordinate.row in rows.indices &&
                 coordinate.col in rows[0].indices
