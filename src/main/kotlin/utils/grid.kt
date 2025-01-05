@@ -22,14 +22,17 @@ data class Coordinate(
         )
     }
     fun neighbours(): List<Coordinate> {
-        return listOf(
-            Coordinate(row - 1, col),
-            Coordinate(row + 1, col),
-            Coordinate(row, col - 1),
-            Coordinate(row, col + 1),
-        )
+        return neighbourVectors.map { this + it }
     }
 }
+
+val neighbourVectors =
+    listOf(
+        Vector(-1, 0),
+        Vector(1, 0),
+        Vector(0, -1),
+        Vector(0, 1),
+    )
 
 data class Vector(
     val rows: Int,
